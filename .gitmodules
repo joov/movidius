@@ -1,0 +1,4 @@
+[submodule "external/keras-yolo3"]
+	path = external/keras-yolo3
+	url = https://github.com/qqwweee/keras-yolo3.git
+
