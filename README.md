@@ -27,9 +27,14 @@ Prepare `vendor/keras-yolo3/model_data/yolo.h5`.
 
 ```console
 $ cd yolo3-camera/vendor/keras-yolo3/
-$ wget https://pjreddie.com/media/files/yolov3.weights
-$ python convert.py yolov3.cfg yolov3.weights model_data/yolo.h5
+
+$ wget https://pjreddie.com/media/files/yolov3-tiny.weights
+$ python convert.py yolov3-tiny.cfg yolov3-tiny.weights model_data/yolo.h5
+
+$ cd -
 ```
+
+> Remember to visit [the original YOLO project](https://pjreddie.com/darknet/yolo/).
 
 ### Run it
 
@@ -37,6 +42,5 @@ $ python convert.py yolov3.cfg yolov3.weights model_data/yolo.h5
 $ python run.py [-h]
 ```
 
-You can see live yolo result like
-![Example](doc/example.jpg
-)
+You should see live yolo result like below:
+![Example](doc/example.jpg)
