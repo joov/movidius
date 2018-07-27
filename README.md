@@ -21,7 +21,7 @@ $ git clone --recursive https://github.com/ctchuang/yolo3-camera.git
 
 Do not forget `--resursive` option.
 
-### Prepare Yolo3 model
+### Prepare Yolov3-Tiny model
 
 Prepare `vendor/keras-yolo3/model_data/yolo.h5`.
 
@@ -29,7 +29,7 @@ Prepare `vendor/keras-yolo3/model_data/yolo.h5`.
 $ cd yolo3-camera/vendor/keras-yolo3/
 
 $ wget https://pjreddie.com/media/files/yolov3-tiny.weights
-$ python convert.py yolov3-tiny.cfg yolov3-tiny.weights model_data/yolo.h5
+$ python convert.py yolov3-tiny.cfg yolov3-tiny.weights model_data/tiny_yolo.h5
 
 $ cd -
 ```
