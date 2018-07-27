@@ -17,13 +17,13 @@ $ git clone --recursive https://github.com/ctchuang/yolo3-camera.git
 
 Do not forget `--resursive` option.
 
-### Get Yolo3 model
-
-```console
-$ cd yolo3-camera/vendor/keras-yolo3/
-```
+### Prepare Yolo3 model
 
 Follow [keras-yolo3 Document](https://github.com/qqwweee/keras-yolo3/blob/master/README.md) 
 to prepare `vendor/keras-yolo3/model_data/yolo.h5`.
 
-
+```console
+$ cd yolo3-camera/vendor/keras-yolo3/
+$ wget https://pjreddie.com/media/files/yolov3.weights
+$ python convert.py yolov3.cfg yolov3.weights model_data/yolo.h5
+```
