@@ -1,11 +1,15 @@
 # yolo3-camera
-Simple camera preview processed with Yolo3
+Simple camera preview processed with Yolo3 
+
+Based on [keras-yolo3 project](https://github.com/qqwweee/keras-yolo3/).
 
 ## Requirements
 
 - Tensorflow
 - Keras
-- OpenCV
+- OpenCV / Numpy
+
+> It's recommended to use `pip` to install the above packages.
 
 ## Setup
 
@@ -19,8 +23,7 @@ Do not forget `--resursive` option.
 
 ### Prepare Yolo3 model
 
-Follow [keras-yolo3 Document](https://github.com/qqwweee/keras-yolo3/blob/master/README.md) 
-to prepare `vendor/keras-yolo3/model_data/yolo.h5`.
+Prepare `vendor/keras-yolo3/model_data/yolo.h5`.
 
 ```console
 $ cd yolo3-camera/vendor/keras-yolo3/
@@ -33,3 +36,7 @@ $ python convert.py yolov3.cfg yolov3.weights model_data/yolo.h5
 ```console
 $ python run.py [-h]
 ```
+
+You can see live yolo result like
+![Example](doc/example.jpg
+)
