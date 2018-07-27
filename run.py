@@ -1,12 +1,22 @@
 import argparse
 import cv2
+import numpy as np
+from vendor.keras_yolo3.yolo import YOLO
+from PIL import Image
 
 _WINDOW_NAME = 'preview'
+
+
+def process_frame(yolo, frame):
+    image = Image.fromarray(frame)
+    image = yolo.detect_image(image)
+    return np.asarray(image)
 
 
 def main(camera_index):
     print('Opening camera %d' % camera_index)
     cap = cv2.VideoCapture(camera_index)
+    yolo = YOLO()
 
     while True:
         ret, frame = cap.read()
@@ -14,8 +24,8 @@ def main(camera_index):
             print('Failed to read camera %d' % camera_index)
             break
 
-        # Display the resulting frame
-        cv2.imshow(_WINDOW_NAME, frame)
+        cv2.imshow(_WINDOW_NAME, process_frame(yolo, frame))
+
         # Pressing 'q' or ESC.
         key = cv2.waitKey(5) & 0xFF
         if key == ord('q') or key == 27:
@@ -25,6 +35,7 @@ def main(camera_index):
             break
 
     cap.release()  # Close camera.
+    yolo.close_session()
     cv2.destroyAllWindows()
 
 
