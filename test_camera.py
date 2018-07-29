@@ -15,7 +15,7 @@ def main(camera_index):
         cv2.imshow('preview', frame)
         if cv2.waitKey(5) & 0xFF == ord('q'):
             break
-        # This check can detect window closing, but it only works for Qt, not Gtk+.
+        # This check can detect window closing, but it doesn't works reliably on Gtk+.
         # if cv2.getWindowProperty('preview', cv2.WND_PROP_VISIBLE) < 1:
         #    break
 

@@ -30,7 +30,7 @@ def main(camera_index):
         key = cv2.waitKey(5) & 0xFF
         if key == ord('q') or key == 27:
             break
-        # This check can detect window closing, but it only works for Qt, not Gtk+.
+        # This check can detect window closing, but it doesn't works reliably on Gtk+.
         # if cv2.getWindowProperty(_WINDOW_NAME, cv2.WND_PROP_VISIBLE) < 1:
         #     break
 
