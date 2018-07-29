@@ -15,8 +15,9 @@ def main(camera_index):
         cv2.imshow('preview', frame)
         if cv2.waitKey(5) & 0xFF == ord('q'):
             break
-        if cv2.getWindowProperty('preview', cv2.WND_PROP_VISIBLE) < 1:
-            break
+        # This check can detect window closing, but it only works for Qt, not Gtk+.
+        # if cv2.getWindowProperty('preview', cv2.WND_PROP_VISIBLE) < 1:
+        #    break
 
     # When everything done, release the capture
     cap.release()

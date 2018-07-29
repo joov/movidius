@@ -30,9 +30,9 @@ def main(camera_index):
         key = cv2.waitKey(5) & 0xFF
         if key == ord('q') or key == 27:
             break
-        # User closed window.
-        if cv2.getWindowProperty(_WINDOW_NAME, cv2.WND_PROP_VISIBLE) < 1:
-            break
+        # This check can detect window closing, but it only works for Qt, not Gtk+.
+        # if cv2.getWindowProperty(_WINDOW_NAME, cv2.WND_PROP_VISIBLE) < 1:
+        #     break
 
     cap.release()  # Close camera.
     yolo.close_session()
