@@ -7,59 +7,7 @@ Work on Mac OS X and Linux.
 
 - [The original YOLO project](https://pjreddie.com/darknet/yolo/).
 - [keras-yolo3 project](https://github.com/qqwweee/keras-yolo3/).
-
-## Environment Setup
-
-Required packages:
-- Python 3.x
-- Tensorflow
-- Keras
-- OpenCV / Numpy / PIL (Pillow) / matplotlib
-
-### Create virtualenv 
-
-It's recommended to install the packages inside `virtualenv` for being simpler and
-easier to debug.
-
-#### Mac OS
-
-Install [Homebrew](https://brew.sh/) first.
-
-> Note that Mac OS X is also bundled with Python 2.7 distribution. Make sure the Python
-> executables you use are located in `/usr/local/bin`, which implies they're installed by Homebrew.
-
-```console
-# Default Python package of Homebrew is Python 3.x, not Python 2.7.
-$ brew install python
-$ which pip3
-/usr/local/bin/pip3
-
-$ pip3 install virtualenv
-$ which virtualenv
-/usr/local/bin/virtualenv
-
-$ virtualenv env
-$ . env/bin/activate
-$ pip install --upgrade pip
-```
-
-#### Ubuntu 16.04
-
-Default system-installed Python is Python 2.7. Don't try to change that. Create a virtualenv with
-Python 3.x.
-
-```console
-$ sudo apt install python3-venv
-$ python3 -m venv env
-$ . env/bin/activate
-$ pip install --upgrade pip
-```
-
-### Install related packages in virtualenv (OS X and Ubuntu):
-
-```console
-$ pip install tensorflow keras h5py opencv-python Pillow matplotlib
-```
+- [YoloV2NCS project](https://github.com/duangenquan/YoloV2NCS)
 
 ## Get the code
 
@@ -69,18 +17,15 @@ $ git clone --recursive https://github.com/ctchuang/yolo3-camera.git
 
 > Do not forget `--resursive` option.
 
-## Prepare Yolov3-Tiny model
+## Decide the backend
 
-To prepare `vendor/keras-yolo3/model_data/yolo.h5`:
+### 1. Keras-based (doesn't require special hardware)
 
-```console
-$ cd yolo3-camera/vendor/keras-yolo3/
+- [Setup keras_yolo3](doc/keras_yolo3.md)
 
-$ wget https://pjreddie.com/media/files/yolov3-tiny.weights
-$ python convert.py yolov3-tiny.cfg yolov3-tiny.weights model_data/tiny_yolo.h5
+### 2. Intel Movidius NCS hardware
 
-$ cd -
-```
+- [Setup YoloV2NCS](doc/yolov2ncs.md)
 
 ## Run it
 
