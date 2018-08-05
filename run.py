@@ -1,9 +1,6 @@
 import argparse
 import cv2
-import numpy as np
 import sys
-from PIL import Image
-
 
 if sys.version_info.major < 3:
     print('Error: please use python3.')
@@ -29,13 +26,21 @@ class KerasBackend(object):
         self.yolo.close_session()
 
     def process_frame(self, frame):
+        import numpy as np
+        from PIL import Image
         image = Image.fromarray(frame)
         image = self.yolo.detect_image(image)
         return np.asarray(image)
 
 
 class YoloV2NCS_Backend(object):
-    pass
+    def __init__(self):
+        from vendor.YoloV2NCS.detectionExample.ObjectWrapper import ObjectWrapper
+        self.wrapper = ObjectWrapper('vendor/YoloV2NCS/graph')
+
+    def process_frame(self, frame):
+        from vendor.YoloV2NCS.detectionExample.Visualize import Visualize
+        return Visualize(frame, self.wrapper.Detect(frame))
 
 
 def main(camera_index, backend_index):
