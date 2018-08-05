@@ -1,8 +1,7 @@
 [submodule "vendor/keras-yolo3"]
 	path = vendor/keras_yolo3
 	url = https://github.com/ctchuang/keras-yolo3.git
+
 [submodule "vendor/YoloV2NCS"]
 	path = vendor/YoloV2NCS
 	url = https://github.com/ctchuang/YoloV2NCS.git
-
-
