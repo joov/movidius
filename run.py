@@ -1,10 +1,18 @@
 import argparse
 import cv2
 import numpy as np
-from vendor.keras_yolo3.yolo import YOLO
+import sys
 from PIL import Image
 
+from vendor.keras_yolo3.yolo import YOLO
+
 _WINDOW_NAME = 'preview'
+
+
+def validate_python():
+    if sys.version_info.major < 3:
+        print('Error: please use python3.')
+        sys.exit(1)
 
 
 def process_frame(yolo, frame):
@@ -14,6 +22,8 @@ def process_frame(yolo, frame):
 
 
 def main(camera_index):
+    validate_python()
+
     print('Opening camera %d' % camera_index)
     cap = cv2.VideoCapture(camera_index)
     yolo = YOLO()
