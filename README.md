@@ -1,7 +1,6 @@
 # yolo3-camera
-Simple camera preview processed with Yolo3 
 
-Work on Mac OS X and Linux.
+Very simple camera preview processed with yolov3-tiny
 
 ## Credits
 
@@ -19,13 +18,17 @@ $ git clone --recursive https://github.com/ctchuang/yolo3-camera.git
 
 ## Decide the backend
 
-### 1. Keras-based (doesn't require special hardware)
+### 1. Keras_Yolo3
 
-- [Setup keras_yolo3](doc/keras_yolo3.md)
+Work on Mac OS X and Linux with CPU-only.
 
-### 2. YoloV2NCS (requires Intel Movidius NCS)
+- [Setup keras_yolo3 backend](doc/keras_yolo3.md)
 
-- [Setup YoloV2NCS](doc/yolov2ncs.md)
+### 2. YoloV2NCS
+
+Work on Linux with Intel Movidius NCS hardware.
+
+- [Setup YoloV2NCS backend](doc/yolov2ncs.md)
 
 ## Run it
 
