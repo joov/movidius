@@ -23,14 +23,18 @@ $ git clone --recursive https://github.com/ctchuang/yolo3-camera.git
 
 - [Setup keras_yolo3](doc/keras_yolo3.md)
 
-### 2. Intel Movidius NCS hardware
+### 2. YoloV2NCS (requires Intel Movidius NCS)
 
 - [Setup YoloV2NCS](doc/yolov2ncs.md)
 
 ## Run it
 
 ```console
-$ python3 run.py [-h]
+# Use Keras backend
+$ python3 run.py -b 0 
+
+# Use YoloV2NCS
+$ python3 run.py -b 1 
 ```
 
 You should see live yolo result like below:

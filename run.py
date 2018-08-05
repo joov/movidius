@@ -15,18 +15,38 @@ def validate_python():
         sys.exit(1)
 
 
-def process_frame(yolo, frame):
-    image = Image.fromarray(frame)
-    image = yolo.detect_image(image)
-    return np.asarray(image)
+def backend_factory(backend_index):
+    if backend_index == 0:
+        return KerasBackend()
+    elif backend_index == 1:
+        return YoloV2NCS_Backend()
 
 
-def main(camera_index):
+class KerasBackend(object):
+    def __init__(self):
+        self.yolo = YOLO()
+
+    def __del__(self):
+        self.yolo.close_session()
+
+    def process_frame(self, frame):
+        image = Image.fromarray(frame)
+        image = self.yolo.detect_image(image)
+        return np.asarray(image)
+
+
+class YoloV2NCS_Backend(object):
+    pass
+
+
+def main(camera_index, backend_index):
     validate_python()
 
-    print('Opening camera %d' % camera_index)
+    print('Using backend %d' % backend_index)
+    backend = backend_factory(backend_index)
+
+    print('Using camera %d' % camera_index)
     cap = cv2.VideoCapture(camera_index)
-    yolo = YOLO()
 
     while True:
         ret, frame = cap.read()
@@ -34,7 +54,7 @@ def main(camera_index):
             print('Failed to read camera %d' % camera_index)
             break
 
-        cv2.imshow(_WINDOW_NAME, process_frame(yolo, frame))
+        cv2.imshow(_WINDOW_NAME, backend.process_frame(frame))
 
         # Pressing 'q' or ESC.
         key = cv2.waitKey(5) & 0xFF
@@ -45,7 +65,6 @@ def main(camera_index):
         #     break
 
     cap.release()  # Close camera.
-    yolo.close_session()
     cv2.destroyAllWindows()
 
 
@@ -53,5 +72,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Show camera preview")
     parser.add_argument('-c', '--camera', dest='camera_index', default='0',
                         help='camera index')
+    parser.add_argument('-b', '--backend', dest='backend_index', default='0',
+                        help='backend index')
     args = parser.parse_args()
-    main(int(args.camera_index))
+    main(int(args.camera_index), int(args.backend_index))
