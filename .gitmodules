@@ -5,3 +5,6 @@
 [submodule "vendor/YoloV2NCS"]
 	path = vendor/YoloV2NCS
 	url = https://github.com/ctchuang/YoloV2NCS.git
+[submodule "vendor/darknet"]
+	path = vendor/darknet
+	url = https://github.com/ctchuang/darknet.git
