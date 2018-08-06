@@ -45,6 +45,10 @@ $ git clone --recursive https://github.com/ctchuang/yolo3-camera.git
 	- Intel Movidius NCS USB stick.
 - [Setup YoloV2NCS backend](doc/yolov2ncs.md)
 
+### 3. Darknet
+
+**Unfinished**
+
 ## Run it
 
 Attach a camera.
