@@ -27,9 +27,3 @@ $ make -j4
 ```console
 $ mvNCCompile ./models/caffemodels/yoloV2Tiny20.prototxt -w ./models/caffemodels/yoloV2Tiny20.caffemodel -s 12
 ```
-
-5. Verify if it works for single image
-
-```console
-$ python3 ./detectionExample/Main.py --image ./data/dog.jpg
-```
