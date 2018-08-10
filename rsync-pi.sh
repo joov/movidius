@@ -71,7 +71,7 @@ ${PROGNAME} [OPTIONS]
                Show this help
 
        -c, --code     [CODE_PATH]
-               Specify code path of orangevsapple.
+               Specify local code path of yolo3-camera.
 
        -s, --host     [HOSTNAME]
                Specify SSH hostname.
@@ -80,6 +80,20 @@ ${PROGNAME} [OPTIONS]
 
        -d, --delete
                Enable --delete rsync option (use with caution).
+
+This script will rsync CODE_PATH into HOSTNAME:${REMOTE_PATH}.
+
+You need add your Raspberry Pi in ~/.ssh/config first.
+
+Example ~/.ssh/config:
+
+	Host pi
+	HostName 192.168.1.102
+	User pi
+
+Example command:
+
+	\$ ${PROGNAME} -c ~/Code/yolo3-camera -s pi
 
 EOF
     exit 0
