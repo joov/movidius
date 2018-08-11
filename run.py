@@ -2,6 +2,8 @@ import argparse
 import cv2
 import sys
 
+from camera import camera_factory
+
 if sys.version_info.major < 3:
     print('Error: please use python3.')
     sys.exit(1)
@@ -10,7 +12,9 @@ if sys.version_info.major < 3:
 _WINDOW_NAME = 'preview'
 
 
-def backend_factory(backend_index):
+def backend_factory(backend_id):
+    print('Using backend %r' % backend_id)
+    backend_index = int(backend_id)
     if backend_index == 0:
         return KerasBackend()
     elif backend_index == 1:
@@ -43,17 +47,14 @@ class YoloV2NCS_Backend(object):
         return Visualize(frame, self.wrapper.Detect(frame))
 
 
-def main(camera_index, backend_index):
-    print('Using backend %d' % backend_index)
-    backend = backend_factory(backend_index)
-
-    print('Using camera %d' % camera_index)
-    cap = cv2.VideoCapture(camera_index)
+def main(camera_id, backend_id):
+    backend = backend_factory(backend_id)
+    camera = camera_factory(camera_id)
+    camera.open()
 
     while True:
-        ret, frame = cap.read()
+        ret, frame = camera.read()
         if not ret:
-            print('Failed to read camera %d' % camera_index)
             break
 
         cv2.imshow(_WINDOW_NAME, backend.process_frame(frame))
@@ -63,15 +64,15 @@ def main(camera_index, backend_index):
         if key == ord('q') or key == 27:
             break
 
-    cap.release()  # Close camera.
+    camera.close()
     cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Show camera preview")
-    parser.add_argument('-c', '--camera', dest='camera_index', default='0',
-                        help='camera index')
-    parser.add_argument('-b', '--backend', dest='backend_index', default='0',
-                        help='backend index')
+    parser.add_argument('-c', '--camera', dest='camera_id', default='0',
+                        help='camera id')
+    parser.add_argument('-b', '--backend', dest='backend_id', default='0',
+                        help='backend id')
     args = parser.parse_args()
-    main(int(args.camera_index), int(args.backend_index))
+    main(args.camera_id, args.backend_id)

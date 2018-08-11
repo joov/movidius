@@ -1,16 +1,21 @@
 import argparse
 import cv2
+import sys
+
+from camera import camera_factory
+
+if sys.version_info.major < 3:
+    print('Error: please use python3.')
+    sys.exit(1)
 
 
-def main(camera_index):
-
-    print('Opening camera %d' % camera_index)
-    cap = cv2.VideoCapture(camera_index)
+def main(camera_id):
+    camera = camera_factory(camera_id)
+    camera.open()
 
     while True:
-        ret, frame = cap.read()
+        ret, frame = camera.read()
         if not ret:
-            print('Failed to read camera')
             break
         cv2.imshow('preview', frame)
         if cv2.waitKey(5) & 0xFF == ord('q'):
@@ -20,13 +25,13 @@ def main(camera_index):
         #    break
 
     # When everything done, release the capture
-    cap.release()
+    camera.close()
     cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Show camera preview")
-    parser.add_argument('-c', '--camera', dest='camera_index', default='0',
-                        help='camera index')
+    parser.add_argument('-c', '--camera', dest='camera_id', default='0',
+                        help='camera id')
     args = parser.parse_args()
-    main(int(args.camera_index))
+    main(args.camera_id)
