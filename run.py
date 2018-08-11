@@ -23,9 +23,7 @@ import cv2
 
 import util.version_check
 from util.camera import camera_factory
-
-
-_WINDOW_NAME = 'preview'
+from util.window import Window
 
 
 def backend_factory(backend_id):
@@ -67,21 +65,23 @@ def main(camera_id, backend_id):
     backend = backend_factory(backend_id)
     camera = camera_factory(camera_id)
     camera.open()
+    window = Window()
+    window.open()
 
     while True:
         ret, frame = camera.read()
         if not ret:
             break
 
-        cv2.imshow(_WINDOW_NAME, backend.process_frame(frame))
+        window.show_frame(backend.process_frame(frame))
 
         # Pressing 'q' or ESC.
         key = cv2.waitKey(5) & 0xFF
         if key == ord('q') or key == 27:
             break
 
+    window.close()
     camera.close()
-    cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':

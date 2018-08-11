@@ -18,37 +18,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import argparse
 import cv2
 
-import util.version_check
-from util.camera import camera_factory
-from util.window import Window
+
+_WINDOW = 'preview'
 
 
-def main(camera_id):
-    camera = camera_factory(camera_id)
-    camera.open()
+class Window(object):
+    def open(self):
+        cv2.namedWindow(_WINDOW, cv2.WND_PROP_FULLSCREEN)
+        cv2.setWindowProperty(_WINDOW, cv2.WND_PROP_FULLSCREEN,
+                              cv2.WINDOW_FULLSCREEN)
 
-    window = Window()
-    window.open()
+    def show_frame(self, frame):
+        cv2.imshow(_WINDOW, frame)
 
-    while True:
-        ret, frame = camera.read()
-        if not ret:
-            break
-        window.show_frame(frame)
-        if cv2.waitKey(5) & 0xFF == ord('q'):
-            break
-
-    window.close()
-    camera.close()
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Show camera preview")
-    # -1 selects default camera.
-    parser.add_argument('-c', '--camera', dest='camera_id', default='-1',
-                        help='camera id')
-    args = parser.parse_args()
-    main(args.camera_id)
+    def close(self):
+        cv2.destroyAllWindows()
