@@ -21,7 +21,7 @@
 import argparse
 import cv2
 
-import util.version_check
+import util.environ_check
 from util.camera import camera_factory
 from util.window import Window
 
