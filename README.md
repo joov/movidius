@@ -1,6 +1,7 @@
-# yolo3-camera
+# yolo-camera
 
-Very simple camera preview processed with yolov3-tiny
+Encapsulates existing YOLO-based backend codebase to use YOLO model
+on USB camera or Raspberry Pi camera input.
 
 ## Credits
 
@@ -51,14 +52,14 @@ $ git clone --recursive https://github.com/ctchuang/yolo3-camera.git
 
 ## Run it
 
-Attach a camera.
+Attach a USB camera or Raspberry Pi Camera.
 
 ```console
 # Use Keras backend
-$ python3 run.py -b 0 
+$ python3 run.py -b 0 [-c camera_id]
 
 # Use YoloV2NCS
-$ python3 run.py -b 1 
+$ python3 run.py -b 1 [-c camera_id]
 ```
 
 You should see live yolo result like below:
@@ -66,19 +67,26 @@ You should see live yolo result like below:
 
 Press ESC key to exit.
 
-## Troubleshooting
+### camera id
 
-Check camera is working.
-```console
-$ python3 test_camera.py
-```
-
-If camera is not working, check device number (Linux only)
+For USB camera:
 ```console
 $ ls -l /dev/video*
 ```
+For example, `camera_id` is `1` for `/dev/video1`.
 
-You can use `-c [camera_index]` in `run.py` and `test_camera.py`.
+For Raspberry Pi camera, use `pi` as camera id.
 
-Using USB camera + Movidius NCS on Raspberry Pi 3 together may have power issue
-(RPi3 only gets 12W). Consider adding a powered USB 3.0 hub.
+## Troubleshooting
+
+## Camera test
+
+Test camera is working.
+```console
+$ python3 test_camera.py -c [camera_id]
+```
+
+## Movidius NCS on Raspberry Pi 3
+
+When using USB camera + Movidius NCS on Raspberry Pi 3 may have flakiness
+because RPi3 only gets 12W. Adding a powered USB 3.0 hub can fix this.

@@ -1,14 +1,51 @@
+# Copyright (c) 2018 Chen-Ting Chuang
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 import cv2
+
+try:
+    from picamera.array import PiRGBArray
+    from picamera import PiCamera
+except ImportError:
+    print('picamera[array] is not installed')
+    print("Run 'pip3 install picamera[array]' " +
+          "if you're using Raspberry Pi camera\n")
+
+
+_CAMERA_WIDTH = 640
+_CAMERA_HEIGHT = 480
 
 
 def camera_factory(camera_id):
     if camera_id == 'pi':
-        assert False, 'Pi camera is unsupported'
+        return _RaspberryCamera()
     else:
-        return USBCamera(int(camera_id))
+        return _USBCamera(int(camera_id))
 
 
-class USBCamera(object):
+# def _crop_frame(frame):
+#     x_offset = int((_CAMERA_WIDTH - _CAMERA_CROPPED_WIDTH) / 2)
+#     return frame[:, x_offset:x_offset + _CAMERA_CROPPED_WIDTH]
+
+
+class _USBCamera(object):
     def __init__(self, camera_id):
         self.device_index = camera_id
         self.capture = None
@@ -16,6 +53,8 @@ class USBCamera(object):
     def open(self):
         print('Opening USB camera %d' % self.device_index)
         self.capture = cv2.VideoCapture(self.device_index)
+        self.capture.set(cv2.CAP_PROP_FRAME_WIDTH, _CAMERA_WIDTH)
+        self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT, _CAMERA_HEIGHT)
 
     def read(self):
         """Reads a frame.
@@ -32,3 +71,29 @@ class USBCamera(object):
         if self.capture:
             self.capture.release()
             self.capture = None
+
+
+class _RaspberryCamera(object):
+    def __init__(self):
+        self.camera = None
+
+    def open(self):
+        self.camera = PiCamera()
+        self.camera.resolution = (_CAMERA_WIDTH, _CAMERA_HEIGHT)
+
+    def read(self):
+        """Reads a frame.
+
+        Returns (ret, frame)
+        """
+        capture = PiRGBArray(self.camera)
+        try:
+            self.camera.capture(capture, format='bgr')
+            print(capture.array.shape)
+            return True, capture.array
+        except Exception as e:
+            print('Failed to read from Raspberry Pi camera %r' % e)
+            return False, None
+
+    def close(self):
+        pass
