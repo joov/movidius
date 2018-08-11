@@ -22,7 +22,7 @@ import argparse
 import cv2
 import sys
 
-from camera import camera_factory
+from util.camera import camera_factory
 
 if sys.version_info.major < 3:
     print('Error: please use python3.')
