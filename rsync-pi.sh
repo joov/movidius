@@ -83,7 +83,7 @@ ${PROGNAME} [OPTIONS]
 
 This script will rsync CODE_PATH into HOSTNAME:${REMOTE_PATH}.
 
-You need add your Raspberry Pi in ~/.ssh/config first.
+You need to add your Raspberry Pi in ~/.ssh/config first.
 
 Example ~/.ssh/config:
 
