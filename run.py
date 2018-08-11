@@ -20,13 +20,9 @@
 
 import argparse
 import cv2
-import sys
 
+import util.version_check
 from util.camera import camera_factory
-
-if sys.version_info.major < 3:
-    print('Error: please use python3.')
-    sys.exit(1)
 
 
 _WINDOW_NAME = 'preview'
