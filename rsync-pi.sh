@@ -127,5 +127,5 @@ do
         --exclude '.*' --exclude 'TAGS' \
         --exclude '*.pyc' --exclude '__pycache__' \
         --exclude '*.so' --exclude '*.a' --exclude '*.o' \
-        "${CODE}" "${HOST}:${DEST_PATH}"
+        "${CODE}" "${HOST}:${REMOTE_PATH}"
 done
