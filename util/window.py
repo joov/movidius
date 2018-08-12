@@ -28,8 +28,8 @@ _WINDOW = 'preview'
 
 # Resize to fit my 480x320 display on RPi3 with the same aspect ratio 
 # of 640x480.
-_RESIZE_WIDTH = 427
-_RESIZE_HEIGHT = 320
+# _RESIZE_WIDTH = 427
+# _RESIZE_HEIGHT = 320
 
 
 def _current_millis():
@@ -83,7 +83,8 @@ class Window(object):
                          text, text_color, fill_color)
 
     def show_frame(self, frame, detected=None):
-        frame = cv2.resize(frame, (_RESIZE_WIDTH, _RESIZE_HEIGHT))
+        # frame = cv2.resize(frame, (_RESIZE_WIDTH, _RESIZE_HEIGHT))
+        frame = frame.copy()
         self._mark_detected(frame, detected)
         if self.show_fps:
             now = _current_millis()
