@@ -21,6 +21,8 @@
 import cv2
 import time
 
+from .text import draw_text_in_box
+
 
 _WINDOW = 'preview'
 
@@ -56,8 +58,33 @@ class Window(object):
         cv2.putText(frame, text, (20, height - 20),
                     cv2.FONT_HERSHEY_DUPLEX, 0.7, (0, 100, 0), 2)
 
-    def show_frame(self, frame):
+    @staticmethod
+    def _mark_detected(frame, detected):
+        if not detected:
+            return
+
+        frame_width = frame.shape[1]
+        box_left = int(frame_width / 6)
+        box_right = int(frame_width * 5 / 6)
+        box_top = 20
+        box_bottom = 70
+
+        font_face = cv2.FONT_HERSHEY_SIMPLEX
+        font_scale = 0.8
+        font_thickness = 2
+
+        fill_color = (70, 70, 220)
+        text_color = (255, 255, 255)
+
+        text = 'Detected ' + detected
+
+        draw_text_in_box(frame, box_top, box_right, box_bottom, box_left,
+                         font_face, font_scale, font_thickness,
+                         text, text_color, fill_color)
+
+    def show_frame(self, frame, detected=None):
         frame = cv2.resize(frame, (_RESIZE_WIDTH, _RESIZE_HEIGHT))
+        self._mark_detected(frame, detected)
         if self.show_fps:
             now = _current_millis()
             self.frame_count += 1

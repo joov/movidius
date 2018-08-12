@@ -28,7 +28,7 @@ from util.window import Window
 from backend import backend_factory
 
 
-def main(camera_id, backend_id, show_fps):
+def main(camera_id, backend_id, show_fps, detect_type):
     backend = backend_factory(backend_id)
     camera = camera_factory(camera_id)
     camera.open()
@@ -40,7 +40,9 @@ def main(camera_id, backend_id, show_fps):
         if not ret:
             break
 
-        window.show_frame(backend.process_frame(frame))
+        window.show_frame(backend.process_frame(frame),
+                          detect_type if (detect_type and backend.detect(detect_type))
+                          else None)
 
         # Pressing 'q' or ESC.
         key = cv2.waitKey(5) & 0xFF
@@ -60,5 +62,7 @@ if __name__ == '__main__':
                         help='Set backend id.')
     parser.add_argument('-f', '--fps', dest='show_fps', default=False,
                         action='store_true', help='Show FPS info.')
+    parser.add_argument('-d', '--detect', dest='detect_type', default=None,
+                        help='Set object type to detect.')
     args = parser.parse_args()
-    main(args.camera_id, args.backend_id, args.show_fps)
+    main(args.camera_id, args.backend_id, args.show_fps, args.detect_type)

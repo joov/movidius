@@ -22,10 +22,10 @@
 def backend_factory(backend_id):
     backend_index = int(backend_id)
     if backend_index == 0:
-        print('Use Keras/Tensorflow backend.')
+        print('Using Keras/Tensorflow backend.')
         return _KerasBackend()
     elif backend_index == 1:
-        print('Use Movidius NCS backend.')
+        print('Using Movidius NCS backend.')
         return _YoloV2NCS_Backend()
 
 
@@ -44,12 +44,21 @@ class _KerasBackend(object):
         image = self.yolo.detect_image(image)
         return np.asarray(image)
 
+    def detect(self, detect_type):
+        assert False, 'detect() is not implemented in Keras backend'
+
 
 class _YoloV2NCS_Backend(object):
     def __init__(self):
         from vendor.YoloV2NCS.detectionExample.ObjectWrapper import ObjectWrapper
         self.wrapper = ObjectWrapper('vendor/YoloV2NCS/graph')
+        self.results = []
 
     def process_frame(self, frame):
         from vendor.YoloV2NCS.detectionExample.Visualize import Visualize
-        return Visualize(frame, self.wrapper.Detect(frame))
+        self.results = self.wrapper.Detect(frame)
+        return Visualize(frame, self.results)
+
+    def detect(self, detect_type):
+        return any(x.name == detect_type for x in self.results)
+
