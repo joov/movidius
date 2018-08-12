@@ -20,11 +20,12 @@
 
 
 def backend_factory(backend_id):
-    print('Using backend %r' % backend_id)
     backend_index = int(backend_id)
     if backend_index == 0:
+        print('Use Keras/Tensorflow backend.')
         return _KerasBackend()
     elif backend_index == 1:
+        print('Use Movidius NCS backend.')
         return _YoloV2NCS_Backend()
 
 
