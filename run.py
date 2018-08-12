@@ -61,11 +61,11 @@ class YoloV2NCS_Backend(object):
         return Visualize(frame, self.wrapper.Detect(frame))
 
 
-def main(camera_id, backend_id):
+def main(camera_id, backend_id, show_fps):
     backend = backend_factory(backend_id)
     camera = camera_factory(camera_id)
     camera.open()
-    window = Window()
+    window = Window(show_fps)
     window.open()
 
     while True:
@@ -88,8 +88,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Show camera preview")
     # -1 selects default camera.
     parser.add_argument('-c', '--camera', dest='camera_id', default='-1',
-                        help='camera id')
+                        help='Set camera id.')
     parser.add_argument('-b', '--backend', dest='backend_id', default='0',
-                        help='backend id')
+                        help='Set backend id.')
+    parser.add_argument('-f', '--fps', dest='show_fps', default=False,
+                        action='store_true', help='Show FPS info.')
     args = parser.parse_args()
-    main(args.camera_id, args.backend_id)
+    main(args.camera_id, args.backend_id, args.show_fps)

@@ -30,7 +30,7 @@ def _current_millis():
 
 
 class Window(object):
-    def __init__(self, show_fps=True):
+    def __init__(self, show_fps=False):
         self.show_fps = show_fps
         self.last_time = _current_millis()
         self.frame_count = 0

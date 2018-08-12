@@ -49,6 +49,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Show camera preview")
     # -1 selects default camera.
     parser.add_argument('-c', '--camera', dest='camera_id', default='-1',
-                        help='camera id')
+                        help='Set camera id.')
     args = parser.parse_args()
     main(args.camera_id)
