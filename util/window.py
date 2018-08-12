@@ -51,10 +51,10 @@ class Window(object):
         if not text:
             return
         height = frame.shape[0]
-        cv2.putText(frame, text, (20, height - 30),
-                    cv2.FONT_HERSHEY_DUPLEX, 1, (255, 255, 255), 5)
-        cv2.putText(frame, text, (20, height - 30),
-                    cv2.FONT_HERSHEY_DUPLEX, 1, (0, 100, 0), 2)
+        cv2.putText(frame, text, (20, height - 20),
+                    cv2.FONT_HERSHEY_DUPLEX, 0.7, (255, 255, 255), 5)
+        cv2.putText(frame, text, (20, height - 20),
+                    cv2.FONT_HERSHEY_DUPLEX, 0.7, (0, 100, 0), 2)
 
     def show_frame(self, frame):
         frame = cv2.resize(frame, (_RESIZE_WIDTH, _RESIZE_HEIGHT))
