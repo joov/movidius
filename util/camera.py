@@ -32,6 +32,13 @@ except ImportError:
 _CAMERA_WIDTH = 640
 _CAMERA_HEIGHT = 480
 
+# Hack: drop queued v4l2 frames until the last one.
+# IIRC the magic number is decided somewhere in V4L2 or UVC layer in kernel.
+# Assume kernel queues 5 frames, then drop the first 4 frames.
+# TODO: we should be able to VIDIOC_DQBUF V4L2 buffer, but I'm not
+#       sure if OpenCV supports this operation.
+_DROP_FRAME_QUEUE = 4
+
 
 def camera_factory(camera_id):
     if camera_id == 'pi':
@@ -62,6 +69,9 @@ class _USBCamera(object):
         Returns (ret, frame)
         """
         assert self.capture is not None, 'Camera is not open'
+        if _DROP_FRAME_QUEUE > 0:
+            for i in range(_DROP_FRAME_QUEUE):
+                self.capture.grab()
         ret, frame = self.capture.read()
         if not ret:
             print('Failed to read camera %d' % self.device_index)
