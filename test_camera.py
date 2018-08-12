@@ -26,11 +26,11 @@ from util.camera import camera_factory
 from util.window import Window
 
 
-def main(camera_id):
+def main(camera_id, show_fps):
     camera = camera_factory(camera_id)
     camera.open()
 
-    window = Window()
+    window = Window(show_fps)
     window.open()
 
     while True:
@@ -50,5 +50,7 @@ if __name__ == '__main__':
     # -1 selects default camera.
     parser.add_argument('-c', '--camera', dest='camera_id', default='-1',
                         help='Set camera id.')
+    parser.add_argument('-f', '--fps', dest='show_fps', default=False,
+                        action='store_true', help='Show FPS info.')
     args = parser.parse_args()
-    main(args.camera_id)
+    main(args.camera_id, args.show_fps)
