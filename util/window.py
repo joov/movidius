@@ -23,6 +23,8 @@ import time
 
 
 _WINDOW = 'preview'
+_RESIZE_WIDTH = 427
+_RESIZE_HEIGHT = 320
 
 
 def _current_millis():
@@ -34,22 +36,36 @@ class Window(object):
         self.show_fps = show_fps
         self.last_time = _current_millis()
         self.frame_count = 0
+        self.fps_text = ''
 
     def open(self):
         cv2.namedWindow(_WINDOW, cv2.WND_PROP_FULLSCREEN)
         cv2.setWindowProperty(_WINDOW, cv2.WND_PROP_FULLSCREEN,
                               cv2.WINDOW_FULLSCREEN)
 
+    @staticmethod
+    def _fps_text(frame, text):
+        if not text:
+            return
+        height = frame.shape[0]
+        cv2.putText(frame, text, (20, height - 30),
+                    cv2.FONT_HERSHEY_DUPLEX, 1, (255, 255, 255), 5)
+        cv2.putText(frame, text, (20, height - 30),
+                    cv2.FONT_HERSHEY_DUPLEX, 1, (0, 100, 0), 2)
+
     def show_frame(self, frame):
+        frame = cv2.resize(frame, (_RESIZE_WIDTH, _RESIZE_HEIGHT))
         if self.show_fps:
             now = _current_millis()
-            if (now - self.last_time) > 1000:
-                fps = float(self.frame_count) / (now - self.last_time) * 1000.0
-                print('fps: %.2f' % fps)
+            if (now - self.last_time) > 3000 and self.frame_count > 0:
+                fps = self.frame_count * 1000.0 / float(now - self.last_time)
                 self.last_time = now
                 self.frame_count = 0
+                self.fps_text = 'fps: %.2f' % fps
+                print(self.fps_text)
             else:
                 self.frame_count += 1
+            self._fps_text(frame, self.fps_text)
         cv2.imshow(_WINDOW, frame)
 
     def close(self):
