@@ -60,10 +60,17 @@ $ python3 run.py -b 0 [-c camera_id]
 
 # Use YoloV2NCS
 $ python3 run.py -b 1 [-c camera_id]
+
+# Get help
+$ python3 run.py -h
+
 ```
 
 You should see live yolo result like below:
 ![Example](doc/example.jpg)
+
+It also works on Raspberry Pi 3 with Pi camera.
+![RPi3](doc/pi.jpg)
 
 Press ESC key to exit.
 
@@ -73,20 +80,19 @@ For USB camera:
 ```console
 $ ls -l /dev/video*
 ```
-For example, `camera_id` is `1` for `/dev/video1`.
+For example, use `1` as camera id for `/dev/video1`.
 
 For Raspberry Pi camera, use `pi` as camera id.
 
 ## Troubleshooting
 
-## Camera test
+### Test camera is working
 
-Test camera is working.
 ```console
 $ python3 test_camera.py -c [camera_id]
 ```
 
-## Movidius NCS on Raspberry Pi 3
+### Movidius NCS on Raspberry Pi 3
 
 When using USB camera + Movidius NCS on Raspberry Pi 3 may have flakiness
 because RPi3 only gets 12W. Adding a powered USB 3.0 hub can fix this.
