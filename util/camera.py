@@ -86,11 +86,11 @@ class _RaspberryCamera(object):
 
         Returns (ret, frame)
         """
-        capture = PiRGBArray(self.camera)
         try:
-            self.camera.capture(capture, format='bgr')
-            print(capture.array.shape)
-            return True, capture.array
+            # TODO: PiRGBArray is extremely slow (<2FPS). No good solution yet.
+            with PiRGBArray(self.camera) as capture:
+                self.camera.capture(capture, format='bgr')
+                return True, capture.array
         except Exception as e:
             print('Failed to read from Raspberry Pi camera %r' % e)
             return False, None
