@@ -23,6 +23,9 @@ import time
 
 
 _WINDOW = 'preview'
+
+# Resize to fit my 480x320 display on RPi3 with the same aspect ratio 
+# of 640x480.
 _RESIZE_WIDTH = 427
 _RESIZE_HEIGHT = 320
 
@@ -57,14 +60,13 @@ class Window(object):
         frame = cv2.resize(frame, (_RESIZE_WIDTH, _RESIZE_HEIGHT))
         if self.show_fps:
             now = _current_millis()
-            if (now - self.last_time) > 3000 and self.frame_count > 0:
+            self.frame_count += 1
+            if (now - self.last_time) > 1500:
                 fps = self.frame_count * 1000.0 / float(now - self.last_time)
                 self.last_time = now
                 self.frame_count = 0
                 self.fps_text = 'fps: %.2f' % fps
                 print(self.fps_text)
-            else:
-                self.frame_count += 1
             self._fps_text(frame, self.fps_text)
         cv2.imshow(_WINDOW, frame)
 
