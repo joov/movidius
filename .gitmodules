@@ -8,6 +8,3 @@
 [submodule "vendor/darknet"]
 	path = vendor/darknet
 	url = https://github.com/ctchuang/darknet.git
-[submodule "vendor/sense-hat-daemon"]
-	path = vendor/sense-hat-daemon
-	url = https://github.com/ctchuang/sense-hat-daemon.git
