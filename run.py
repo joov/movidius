@@ -20,35 +20,61 @@
 
 import argparse
 import cv2
+import signal
 
 import util.environ_check
 from util.camera import camera_factory
 from util.window import Window
+from util.sense_hat import Hat
 
 from backend import backend_factory
 
 
-def main(camera_id, backend_id, show_fps, detect_type):
+class Cleanup(object):
+    def __init__(self):
+        self._stop_now = False
+        signal.signal(signal.SIGINT, self._handler)
+        signal.signal(signal.SIGTERM, self._handler)
+
+    @property
+    def stop_now(self):
+        return self._stop_now
+
+    def _handler(self, signum, frame):
+        self._stop_now = True
+        print('Signal %d' % signum)
+
+
+def main(camera_id, backend_id, show_fps, detect_type, use_led):
     backend = backend_factory(backend_id)
     camera = camera_factory(camera_id)
     camera.open()
     window = Window(show_fps)
     window.open()
+    hat = None
+    if use_led:
+        hat = Hat()
+        hat.open()
 
-    while True:
+    cleanup = Cleanup()
+
+    while not cleanup.stop_now:
         ret, frame = camera.read()
         if not ret:
             break
 
+        detected = (detect_type and backend.detect(detect_type))
         window.show_frame(backend.process_frame(frame),
-                          detect_type if (detect_type and backend.detect(detect_type))
-                          else None)
+                          detect_type if detected else None)
+        if hat:
+            hat.update_led(detected)
 
-        # Pressing 'q' or ESC.
         key = cv2.waitKey(5) & 0xFF
-        if key == ord('q') or key == 27:
+        if key == ord('q') or key == 27:  # Pressing 'q' or ESC.
             break
 
+    if hat:
+        hat.close()
     window.close()
     camera.close()
 
@@ -64,5 +90,7 @@ if __name__ == '__main__':
                         action='store_true', help='Show FPS info.')
     parser.add_argument('-d', '--detect', dest='detect_type', default=None,
                         help='Set object type to detect.')
+    parser.add_argument('-l', '--led', dest='use_led', default=False,
+                        action='store_true', help='Use Raspberry Pi Sense HAT Led.')
     args = parser.parse_args()
-    main(args.camera_id, args.backend_id, args.show_fps, args.detect_type)
+    main(args.camera_id, args.backend_id, args.show_fps, args.detect_type, args.use_led)
