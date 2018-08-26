@@ -90,11 +90,12 @@ $ python3 test_camera.py -c [camera_id]
 
 ### Movidius NCS on Raspberry Pi 3
 
-When using USB camera + Movidius NCS on Raspberry Pi 3 may have flakiness
-because RPi3 only gets 12W. Adding a powered USB 3.0 hub can fix this.
+When using USB camera + Movidius NCS on Raspberry Pi 3 Model B may have flakiness because RPi 3
+Model B does not get enough DC power input. Adding a powered USB 3.0 hub can fix this.
 
-### Known Issues
+RPi3 Model B+ can get more DC power input, and it's possible to use USB camera and Movidius NCS
+stick without extra AC-powered USB hub.
+
+### Other Known Issues
 
 - Reading from Raspberry Pi camera to OpenCV is very slow. (<2FPS)
-
-
