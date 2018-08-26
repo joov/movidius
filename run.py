@@ -28,6 +28,7 @@ from util.window import Window
 from util.sense_hat import Hat
 
 from backend import backend_factory
+from detection_fsm import DetectionFSM
 
 
 class Cleanup(object):
@@ -57,13 +58,13 @@ def main(camera_id, backend_id, show_fps, detect_type, use_led):
         hat.open()
 
     cleanup = Cleanup()
-
+    detection_fsm = DetectionFSM()
     while not cleanup.stop_now:
         ret, frame = camera.read()
         if not ret:
             break
 
-        detected = (detect_type and backend.detect(detect_type))
+        detected = detection_fsm.update_status(detect_type and backend.detect(detect_type))
         window.show_frame(backend.process_frame(frame),
                           detect_type if detected else None)
         if hat:
