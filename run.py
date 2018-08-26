@@ -46,7 +46,8 @@ class Cleanup(object):
         print('Signal %d' % signum)
 
 
-def main(camera_id, backend_id, show_fps, detect_type, use_led):
+def main(camera_id, backend_id, show_fps, detect_type, use_led,
+         play_speech):
     backend = backend_factory(backend_id)
     camera = camera_factory(camera_id)
     camera.open()
@@ -58,7 +59,7 @@ def main(camera_id, backend_id, show_fps, detect_type, use_led):
         hat.open()
 
     cleanup = Cleanup()
-    detection_fsm = DetectionFSM()
+    detection_fsm = DetectionFSM(play_speech)
     while not cleanup.stop_now:
         ret, frame = camera.read()
         if not ret:
@@ -93,5 +94,8 @@ if __name__ == '__main__':
                         help='Set object type to detect.')
     parser.add_argument('-l', '--led', dest='use_led', default=False,
                         action='store_true', help='Use Raspberry Pi Sense HAT Led.')
+    parser.add_argument('-s', '--speech', dest='play_speech', default=False,
+                        action='store_true', help='Play speech on detection')
     args = parser.parse_args()
-    main(args.camera_id, args.backend_id, args.show_fps, args.detect_type, args.use_led)
+    main(args.camera_id, args.backend_id, args.show_fps, args.detect_type, args.use_led,
+         args.play_speech)
