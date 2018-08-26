@@ -27,6 +27,9 @@ def backend_factory(backend_id):
     elif backend_index == 1:
         print('Using Movidius NCS backend.')
         return _YoloV2NCS_Backend()
+    elif backend_index == 9:
+        print('Using fake backend.')
+        return _FakeBackend()
 
 
 class _KerasBackend(object):
@@ -62,3 +65,14 @@ class _YoloV2NCS_Backend(object):
     def detect(self, detect_type):
         return any(x.name == detect_type for x in self.results)
 
+
+class _FakeBackend(object):
+    def __init__(self):
+        pass
+
+    def process_frame(self, frame):
+        return frame
+
+    def detect(self, detect_type):
+        import random
+        return random.randint(0, 1000) < 50
