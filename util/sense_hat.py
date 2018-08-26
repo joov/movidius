@@ -1,7 +1,10 @@
 import time
 from threading import Thread
 
-from sense_hat import SenseHat
+try:
+    from sense_hat import SenseHat
+except ImportError:
+    print('Raspberry Pi sense_hat is not installed')
 
 
 class BlinkingThread(object):
