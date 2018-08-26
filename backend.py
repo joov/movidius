@@ -48,7 +48,7 @@ class _KerasBackend(object):
         return np.asarray(image)
 
     def detect(self, detect_type):
-        assert False, 'detect() is not implemented in Keras backend'
+        return detect_type in self.yolo.get_predicted_classes()
 
 
 class _YoloV2NCS_Backend(object):
