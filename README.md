@@ -1,10 +1,12 @@
 # yolo-camera
 
+
 Encapsulates existing YOLO-based backend codebase to use YOLO model
 on USB camera or Raspberry Pi camera input.
 
 ## Credits
 
+- [RPI YOLO project](https://github.com/ctchuang/yolo3-camera).
 - [The original YOLO project](https://pjreddie.com/darknet/yolo/).
 - [keras-yolo3 project](https://github.com/qqwweee/keras-yolo3/).
 - [YoloV2NCS project](https://github.com/duangenquan/YoloV2NCS)
