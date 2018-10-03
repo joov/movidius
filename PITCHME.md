@@ -1,43 +1,39 @@
 ---
 @title[Introduction]
 
-@snap[west headline text-white span-70]
-Movidius<br>*Neural Network stick*
-@snapend
+## Movidius Neural Network Stick
 
-@snap[south-west byline  text-white]
-USB-Stick auf Basis von Intel's Myriad-X-Chip
-@snapend
+### USB-Stick auf Basis von Intel's Myriad-X-Chip
 
 ---
 @title[Inhalt]
 
-### Inhalt
-
 ---?image=https://software.intel.com/sites/default/files/managed/e8/20/NCS-banner-MovStick-500w-300h.png
+
+### Inhalt
 
 1. Was tut der Movidius-Stick
 1. Funktionsweise
 1. Einrichten auf dem RPI
 1. Coding-Beispiel
 1. Ausblick
-<br><br>
+
 
 ---
 @title[Machine Learning]
 
-# Zwei Phasen des Machine Learning
+### Zwei Phasen des Machine Learning
 
 ![Neural Network](http://uc-r.github.io/public/images/analytics/deep_learning/deep_nn.png)
 
-## Phase 1: Training
+#### Phase 1: Training
 
 - Ermittlung von Gewichten des NN
 - Basis: Markierter Datensatz von Testdaten
 
 [Beispiel: COCO Dataset](http://cocodataset.org/#explore)
 
-## Phase 2: Running
+#### Phase 2: Running
 
 - Einspielen von Echtdaten
 - Ablesen von Ergebnissen
@@ -45,7 +41,7 @@ USB-Stick auf Basis von Intel's Myriad-X-Chip
 ---
 @title[Movidius - Eigenschaften]
 
-# Eigenschaften des Movidius-Sticks
+### Eigenschaften des Movidius-Sticks
 
 1. Hilft nur in Phase 2 (Running)
 1. Beschränkt auf Video-Anwendungen
@@ -55,7 +51,7 @@ USB-Stick auf Basis von Intel's Myriad-X-Chip
 ---
 @title[Beispiele]
 
-# Anwendungsbeispiele
+### Anwendungsbeispiele
 
 [AppZoo](https://github.com/movidius/ncappzoo) enthält Beispielprojekte
 
@@ -66,7 +62,7 @@ USB-Stick auf Basis von Intel's Myriad-X-Chip
 ---
 @title[Installation]
 
-# Installation auf RPI
+### Installation auf RPI
 
 - Basis: Raspbian Desktop (z.B. über [Noobs](https://www.raspberrypi.org/downloads/noobs/) installiert)
 - Installation [Movidius-SDK](https://software.intel.com/en-us/neural-compute-stick/get-started)
@@ -78,15 +74,15 @@ USB-Stick auf Basis von Intel's Myriad-X-Chip
 
 @title[Code]
 
-# Code
+### Code
 
-## Outer Loop
+#### Outer Loop
 
 ---?gist=https://gist.github.com/joov/9c4592e380065bc415ed3bda329f78f3&lang=python&title=Outer Loop
 @[3-5]
 @[15-22]
 
-## Open Device
+#### Open Device
 
 ---?gist=https://gist.github.com/joov/f33fb754236063044bab3d91d218e39c&lang=python&title=Open Device
 @[2-4]
@@ -94,20 +90,20 @@ USB-Stick auf Basis von Intel's Myriad-X-Chip
 ---
 @title[Run]
 
-# Run
+### Run
 
 start `run.sh` in root of project
 
 ---
 @title[Ausblick]
 
-# Ausblick
+### Ausblick
 
-## Kamera
+#### Kamera
 
 - [Aviglion-Kamera](http://news.avigilon.com/News-Releases/News-Release-Details/2018/Avigilon-to-Provide-First-Look-of-AI-Powered-H5-Camera-Line-at-GSX-2018/default.aspx) mit AI-Chip
 - [FLIR-Kamera](https://www.invision-news.de/fachartikel/inferenz-an-der-edge/)
-## Andere Prozessoren
+#### Andere Prozessoren
 
 - [Intel Nervana](https://ai.intel.com/intel-nervana-neural-network-processor-architecture-update/)
 - [GPUs und andere Produkte](https://en.wikipedia.org/wiki/AI_accelerator#Stand_alone_products)
