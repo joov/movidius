@@ -74,7 +74,7 @@ Beispiel: [COCO Dataset](http://cocodataset.org/#explore)
 @title[Installation-2]
 
 - Clone von diesem Projekt mit `--recurse`-Option
-- cd to `yolo3-camera/vendor/YoloV2NCS`
+- cd to `./vendor/YoloV2NCS`
 - `make -j4`
 - Compile Model `mvNCCompile ./models/caffemodels/yoloV2Tiny20.prototxt -w ./models/caffemodels/yoloV2Tiny20.caffemodel -s 12`
 
