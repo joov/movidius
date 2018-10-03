@@ -33,7 +33,7 @@
 - Ermittlung von Gewichten des NN
 - Basis: Markierter Datensatz von Testdaten
 
-[Beispiel: COCO Dataset](http://cocodataset.org/#explore)
+Beispiel: [COCO Dataset](http://cocodataset.org/#explore)
 
 #### Phase 2: Running
 
@@ -105,12 +105,12 @@ start `run.sh` in root of project
 
 #### Kamera
 
-- [Aviglion-Kamera](http://news.avigilon.com/News-Releases/News-Release-Details/2018/Avigilon-to-Provide-First-Look-of-AI-Powered-H5-Camera-Line-at-GSX-2018/default.aspx) mit AI-Chip
-- [FLIR-Kamera](https://www.invision-news.de/fachartikel/inferenz-an-der-edge/)
+- [Aviglion-Kamera](http://news.avigilon.com/News-Releases/News-Release-Details/2018/Avigilon-to-Provide-First-Look-of-AI-Powered-H5-Camera-Line-at-GSX-2018/default.aspx)
+- [FLIR-Kamera](https://groupgets.com/manufacturers/flir/products/boson)
 
 #### Andere Prozessoren
 
-- [Intel Nervana](https://ai.intel.com/intel-nervana-neural-network-processor-architecture-update/)
+- [Intel Nervana](https://ai.intel.com/nervana-nnp/)
 - [Andere Produkte](https://en.wikipedia.org/wiki/AI_accelerator#Stand_alone_products)
   - GPUs
   - Handy-Prozessoren
