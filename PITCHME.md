@@ -2,31 +2,32 @@
 @title[Introduction]
 
 @snap[west headline text-white span-70]
-GitPitch<br>*The Template*
+Movidius<br>*Neural Network stick*
 @snapend
 
 @snap[south-west byline  text-white]
-The Fastest Way From Idea To Presentation.
+USB-Stick auf Basis von Intel's Myriad-X-Chip
 @snapend
 
 ---
-@title[Slide Markdown]
+@title[Inhalt]
 
-### Each slide in this presentation is provided as a *template*.
+### Inhalt
 
-<br><br>
+![Movidius](https://software.intel.com/sites/default/files/managed/e8/20/NCS-banner-MovStick-500w-300h.png)
 
-1. Select only the slide templates that you need.
-1. Customize the template _markdown content_.
-1. Optionally, override template _styles_ and _settings_.
-1. Then present and publish with GitPitch @fa[smile-o]
+1. Was tut der Movidius-Stick
+1. Funktionsweise
+1. Einrichten auf dem RPI
+1. Coding-Beispiel
+1. Ausblick
 <br><br>
 
 ---
 @title[Tip! Fullscreen]
 
-![TIP](template/img/tip.png)
 <br>
+
 For the best viewing experience, press F for fullscreen.
 @css[template-note](We recommend using the *SPACE* key to navigate between slides.)
 
@@ -59,6 +60,3 @@ For the best viewing experience, press F for fullscreen.
 GitPitch<br>*The Template @css[text-orange](End) ;)*
 @snapend
 
-@snap[south docslink span-100]
-For supporting documentation see the [The Template Docs](https://gitpitch.com/docs/the-template)
-@snapend
