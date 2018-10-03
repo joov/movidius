@@ -1,4 +1,4 @@
----?color=linear-gradient(to right, #c02425, #f0cb35)
+---
 @title[Introduction]
 
 @snap[west headline text-white span-70]
@@ -84,7 +84,7 @@ USB-Stick auf Basis von Intel's Myriad-X-Chip
 
 ---?gist=https://gist.github.com/joov/9c4592e380065bc415ed3bda329f78f3&lang=python&title=Outer Loop
 @[3-5]
-@15-22]
+@[15-22]
 
 ## Open Device
 
